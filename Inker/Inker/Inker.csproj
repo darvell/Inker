@@ -80,8 +80,10 @@
     <Compile Include="IShell.cs" />
     <Compile Include="Messages\BrushSizeChangeRequest.cs" />
     <Compile Include="Messages\BrushTypeChangeMessage.cs" />
+    <Compile Include="Messages\GridScaleChangeMessages.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BrushSettingsService.cs" />
+    <Compile Include="Services\GridSettingsService.cs" />
     <Compile Include="Utilities\Colorization.cs" />
     <Compile Include="Utilities\ThemeManagerHelper.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

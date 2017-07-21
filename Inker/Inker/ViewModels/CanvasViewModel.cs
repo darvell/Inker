@@ -7,25 +7,35 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using Caliburn.Micro;
 using Inker.Services;
+using System.Windows;
 
 namespace Inker.ViewModels
 {
     public class CanvasViewModel : PropertyChangedBase
     {
         private BrushSettingsService _brushSettings;
+        private GridSettingsService _gridSettings;
 
         public CanvasViewModel()
         {
             _brushSettings = new BrushSettingsService(); // Design time.
+            _gridSettings = new GridSettingsService();
         }
 
-        public CanvasViewModel(BrushSettingsService brushSettings)
+        public CanvasViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettingsService)
         {
             _brushSettings = brushSettings;
+            _gridSettings = gridSettingsService;
+
             // TODO: Remember the fody thing that'll auto handle this
             _brushSettings.PropertyChanged += (sender, args) =>
             {
                 NotifyOfPropertyChange(nameof(DrawingAttributes));
+            };
+
+            _gridSettings.PropertyChanged += (sender, args) =>
+            {
+                NotifyOfPropertyChange(nameof(DottedBrushViewport));
             };
         }
 
@@ -41,5 +51,12 @@ namespace Inker.ViewModels
             StylusTip = StylusTip.Ellipse
         };
 
+        public Rect DottedBrushViewport
+        {
+            get
+            {
+                return new Rect(0, 0, 10 * _gridSettings.Scale, 10 * _gridSettings.Scale);
+            }
+        }
     }
 }

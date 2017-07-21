@@ -11,7 +11,27 @@
              d:DataContext="{d:DesignInstance Type=viewModels:CanvasViewModel, IsDesignTimeCreatable=True}"
              cal:Bind.AtDesignTime="True"
              >
+    <UserControl.Resources>
+                <DrawingBrush Viewport="{Binding Path=DottedBrushViewport}" ViewportUnits="Absolute" TileMode="Tile" x:Key="DottedBrush" x:Name="DottedBrush">
+                    <DrawingBrush.Drawing>
+                        <DrawingGroup>
+                            <GeometryDrawing Brush="Transparent">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry Rect="0,0,10,10"/>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="#3F000000">
+                                <GeometryDrawing.Geometry>
+                                    <RectangleGeometry Rect="0,0,1,1"/>
+                                </GeometryDrawing.Geometry>
+                            </GeometryDrawing>
+                        </DrawingGroup>
+                    </DrawingBrush.Drawing>
+                </DrawingBrush>
+
+    </UserControl.Resources>
     <Grid>
-        <InkCanvas Name="UserCanvas" DefaultDrawingAttributes="{Binding DrawingAttributes}"/>    
+        <InkCanvas Name="UserCanvas" DefaultDrawingAttributes="{Binding DrawingAttributes}"/>
+        <Rectangle Fill="{StaticResource DottedBrush}" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>

@@ -22,9 +22,10 @@ namespace Inker
         protected override void Configure()
         {
             container = new SimpleContainer();
-            container.Singleton<BrushSettingsService>();
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
+            container.Singleton<BrushSettingsService>();
+            container.Singleton<GridSettingsService>();
             container.PerRequest<CanvasViewModel>();
             container.PerRequest<IShell, ShellViewModel>();
         }
