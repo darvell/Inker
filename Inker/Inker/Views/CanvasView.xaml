@@ -11,7 +11,7 @@
              d:DataContext="{d:DesignInstance Type=viewModels:CanvasViewModel, IsDesignTimeCreatable=True}"
              cal:Bind.AtDesignTime="True">
     <UserControl.Resources>
-        <DrawingBrush Viewport="{Binding Path=DottedBrushViewport}" ViewportUnits="Absolute" TileMode="Tile" x:Key="DottedBrush" x:Name="DottedBrush">
+        <DrawingBrush Viewport="{Binding Path=DottedBrushViewport}" ViewportUnits="Absolute" TileMode="Tile" x:Key="DottedBrush">
             <DrawingBrush.Drawing>
                 <DrawingGroup>
                     <GeometryDrawing Brush="Transparent">
@@ -33,8 +33,8 @@
               HorizontalScrollBarVisibility="Auto"
               VerticalScrollBarVisibility="Auto">
         <Grid>
-            <InkCanvas Name="UserCanvas" DefaultDrawingAttributes="{Binding DrawingAttributes}" />
-            <Rectangle Fill="{StaticResource DottedBrush}" IsHitTestVisible="False" Name="Overlay" />
+            <InkCanvas Name="UserCanvas" Strokes="{Binding Path=UserCanvasStrokes}" DefaultDrawingAttributes="{Binding DrawingAttributes}" />
+            <Rectangle Fill="{StaticResource DottedBrush}" IsHitTestVisible="False" Name="Overlay" Visibility="{Binding OverlayVisiblility}" />
         </Grid>
     </ScrollViewer>
 </UserControl>

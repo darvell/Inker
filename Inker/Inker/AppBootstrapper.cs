@@ -4,19 +4,17 @@ using Inker.ViewModels;
 
 namespace Inker
 {
+    using Caliburn.Micro;
     using System;
     using System.Collections.Generic;
-    using Caliburn.Micro;
-    using MahApps.Metro;
 
     public class AppBootstrapper : BootstrapperBase
     {
-        SimpleContainer container;
+        private SimpleContainer container;
 
         public AppBootstrapper()
         {
             Initialize();
-
         }
 
         protected override void Configure()

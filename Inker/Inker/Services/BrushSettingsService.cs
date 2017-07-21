@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Caliburn.Micro;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Inker.Annotations;
-using System.Drawing;
 using System.Windows.Media;
-using Caliburn.Micro;
-using Inker.Messages;
 
 namespace Inker.Services
 {
     // Acts as a single source of truth on brush settings.
-    public class BrushSettingsService : INotifyPropertyChanged, IHandle<BrushSizeIncreaseMessage>, IHandle<BrushSizeDecreaseMessage>, IHandle<BrushTypeChangeMessage>
+    public class BrushSettingsService : INotifyPropertyChanged, IHandle<Hotkey>
     {
         public Color Color { get; set; } = Color.FromRgb(0, 0, 0);
         public Color HighlightColor { get; set; } = Color.FromArgb(255 / 2, 255, 255, 0);
@@ -34,20 +25,27 @@ namespace Inker.Services
             eventAggregator.Subscribe(this);
         }
 
-        public void Handle(BrushSizeIncreaseMessage message)
+        public void Handle(Hotkey message)
         {
-            Thickness += 1;
-        }
+            switch (message)
+            {
+                case Hotkey.INCREASE_BRUSH:
+                    Thickness += 1;
+                    break;
 
-        public void Handle(BrushSizeDecreaseMessage message)
-        {
-            if (Thickness > 1)
-                Thickness -= 1;
-        }
+                case Hotkey.DECREASE_BRUSH:
+                    if (Thickness > 1)
+                        Thickness -= 1;
+                    break;
 
-        public void Handle(BrushTypeChangeMessage message)
-        {
-            Type = message.Type;
+                case Hotkey.TOGGLE_HIGHLIGHTER:
+                    Type = (Type != BrushType.HIGHLIGHTER ? BrushType.HIGHLIGHTER : BrushType.PEN);
+                    break;
+
+                case Hotkey.TOGGLE_SMOOTHING:
+                    Smoothing = !Smoothing;
+                    break;
+            }
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Media;
 
 namespace Inker.ViewModels
@@ -52,6 +48,6 @@ namespace Inker.ViewModels
             Color.FromArgb(100, 0, 255 ,0),
         };
 
-        #endregion
+        #endregion Color Presets
     }
 }

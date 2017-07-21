@@ -1,16 +1,9 @@
 ﻿using Caliburn.Micro;
-using Inker.Messages;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Inker.Services
 {
-    public class GridSettingsService : INotifyPropertyChanged, IHandle<GridScaleIncreaseMessage>, IHandle<GridScaleDecreaseMessage>, IHandle<GridToggle>
+    public class GridSettingsService : INotifyPropertyChanged, IHandle<Hotkey>
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -26,26 +19,22 @@ namespace Inker.Services
         public GridType Type { get; set; } = GridType.DOTTED_PAPER;
         public float Scale { get; set; } = 1.0f;
 
-        public void Handle(GridScaleIncreaseMessage message)
+        public void Handle(Hotkey message)
         {
-            Scale += 0.05f;
-        }
-
-        public void Handle(GridScaleDecreaseMessage message)
-        {
-            if (Scale > 0.05)
-                Scale -= 0.05f;
-        }
-
-        public void Handle(GridToggle message)
-        {
-            if (Type != GridType.NONE)
+            switch (message)
             {
-                Type = GridType.NONE;
-            }
-            else
-            {
-                Type = GridType.DOTTED_PAPER;
+                case Hotkey.TOGGLE_GRID:
+                    Type = (Type != GridType.NONE ? GridType.NONE : GridType.DOTTED_PAPER);
+                    break;
+
+                case Hotkey.INCREASE_GRID:
+                    Scale += 0.05f;
+                    break;
+
+                case Hotkey.DECREASE_GRID:
+                    if (Scale > 0.05f)
+                        Scale -= 0.05f;
+                    break;
             }
         }
     }

@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Ink;
-using System.Windows.Media;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Inker.Services;
+using System;
+using System.Collections.Generic;
 using System.Windows;
-using System.Diagnostics;
+using System.Windows.Ink;
+using System.Linq;
 
 namespace Inker.ViewModels
 {
-    public class CanvasViewModel : PropertyChangedBase
+    public class CanvasViewModel : PropertyChangedBase, IHandle<Hotkey>
     {
         private BrushSettingsService _brushSettings;
         private GridSettingsService _gridSettings;
+        private const int MAX_HISTORY = 50;
+
+        private List<Tuple<StrokeCollection, bool>> _strokeHistory = new List<Tuple<StrokeCollection, bool>>();
 
         public CanvasViewModel()
         {
@@ -23,8 +22,9 @@ namespace Inker.ViewModels
             _gridSettings = new GridSettingsService();
         }
 
-        public CanvasViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettingsService)
+        public CanvasViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettingsService, IEventAggregator eventAggregator)
         {
+            eventAggregator.Subscribe(this);
             _brushSettings = brushSettings;
             _gridSettings = gridSettingsService;
 
@@ -38,6 +38,21 @@ namespace Inker.ViewModels
             {
                 NotifyOfPropertyChange(nameof(DottedBrushViewport));
                 NotifyOfPropertyChange(nameof(OverlayVisiblility));
+            };
+
+            UserCanvasStrokes.StrokesChanged += (sender, args) =>
+            {
+                if (_strokeHistory.Count >= MAX_HISTORY)
+                    _strokeHistory.RemoveAt(0);
+
+                if (args.Added?.Count > 0)
+                {
+                    _strokeHistory.Add(Tuple.Create(args.Added, true));
+                }
+                else if (args.Removed?.Count > 0)
+                {
+                    _strokeHistory.Add(Tuple.Create(args.Removed, false));
+                }
             };
         }
 
@@ -66,6 +81,30 @@ namespace Inker.ViewModels
             get
             {
                 return _gridSettings.Type != GridType.NONE ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        public StrokeCollection UserCanvasStrokes { get; set; } = new StrokeCollection();
+
+        public void Handle(Hotkey message)
+        {
+            var lastThing = _strokeHistory.LastOrDefault();
+            if (lastThing == null)
+                return;
+
+            switch (message)
+            {
+                case Hotkey.UNDO:
+                    _strokeHistory.Remove(lastThing);
+                    if (lastThing.Item2)
+                    {
+                        UserCanvasStrokes.Remove(lastThing.Item1);
+                    }
+                    else
+                    {
+                        UserCanvasStrokes.Add(lastThing.Item1);
+                    }
+                    break;
             }
         }
     }

@@ -77,10 +77,8 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="BrushType.cs" />
     <Compile Include="GridType.cs" />
+    <Compile Include="Hotkey.cs" />
     <Compile Include="IShell.cs" />
-    <Compile Include="Messages\BrushSizeChangeRequest.cs" />
-    <Compile Include="Messages\BrushTypeChangeMessage.cs" />
-    <Compile Include="Messages\GridScaleChangeMessages.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BrushSettingsService.cs" />
     <Compile Include="Services\GridSettingsService.cs" />

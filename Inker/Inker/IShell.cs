@@ -1,3 +1,4 @@
-namespace Inker {
-    public interface IShell {}
+namespace Inker
+{
+    public interface IShell { }
 }

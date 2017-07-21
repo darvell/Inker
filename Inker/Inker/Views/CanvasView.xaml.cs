@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace Inker.Views
 {
@@ -10,6 +11,10 @@ namespace Inker.Views
         public CanvasView()
         {
             InitializeComponent();
+            KeyDown += (sender, args) =>
+            {
+                Debug.WriteLine($"KeyDown: {args.Key} SysKey: {args.SystemKey}");
+            };
         }
     }
 }
