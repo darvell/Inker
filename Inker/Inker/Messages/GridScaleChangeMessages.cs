@@ -10,8 +10,7 @@ namespace Inker.Messages
     {
     }
 
-public class GridScaleDecreaseMessage
+    public class GridScaleDecreaseMessage
     {
     }
-
 }
