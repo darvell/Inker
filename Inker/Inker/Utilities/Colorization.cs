@@ -38,17 +38,11 @@ namespace Inker.Utilities
             if (mainHandle != IntPtr.Zero)
             {
                 HwndSource.FromHwnd(mainHandle)?.AddHook(WndProcHook);
+                Debug.WriteLine("Hook added.");
             }
             else
             {
-                if (_hookedColorization == false)
-                {
-                    Application.Current.Startup += delegate (object sender, StartupEventArgs args)
-                    {
-                        ConfigureMonitoring();
-                    };
-
-                }
+                throw new Exception("Attempted to listen to colorization changes prior to application load.");
             }
             _hookedColorization = true;
         }

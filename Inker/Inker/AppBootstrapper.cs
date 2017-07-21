@@ -47,8 +47,8 @@ namespace Inker
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             ThemeManagerHelper.CreateAppStyleBy(Colorization.Current, true);
-            Colorization.ColorizationChanged += (o, color) => ThemeManagerHelper.CreateAppStyleBy(Colorization.Current, true);
             DisplayRootViewFor<IShell>();
+            Colorization.ColorizationChanged += (o, color) => ThemeManagerHelper.CreateAppStyleBy(Colorization.Current, true);
         }
     }
 }
