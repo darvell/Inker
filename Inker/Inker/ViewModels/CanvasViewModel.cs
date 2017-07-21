@@ -32,7 +32,7 @@ namespace Inker.ViewModels
         // Wrap our brush settings in to the Windows Ink drawing attributes class.
         public DrawingAttributes DrawingAttributes => new DrawingAttributes()
         {
-            Color = _brushSettings.Color,
+            Color = (_brushSettings.Type == BrushType.PEN) ? _brushSettings.Color : _brushSettings.HighlightColor,
             FitToCurve = _brushSettings.Smoothing,
             Height = _brushSettings.Thickness,
             Width = _brushSettings.Thickness,

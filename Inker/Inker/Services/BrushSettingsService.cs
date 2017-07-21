@@ -14,9 +14,10 @@ using Inker.Messages;
 namespace Inker.Services
 {
     // Acts as a single source of truth on brush settings.
-    public class BrushSettingsService : INotifyPropertyChanged, IHandle<BrushSizeIncreaseMessage>, IHandle<BrushSizeDecreaseMessage>
+    public class BrushSettingsService : INotifyPropertyChanged, IHandle<BrushSizeIncreaseMessage>, IHandle<BrushSizeDecreaseMessage>, IHandle<BrushTypeChangeMessage>
     {
-        public Color Color { get; set; } = Color.FromRgb(0,0,0);
+        public Color Color { get; set; } = Color.FromRgb(0, 0, 0);
+        public Color HighlightColor { get; set; } = Color.FromArgb(255 / 2, 255, 255, 0);
         public int Thickness { get; set; } = 4;
         public BrushType Type { get; set; } = BrushType.PEN;
         public bool Smoothing { get; set; } = true;
@@ -42,6 +43,11 @@ namespace Inker.Services
         {
             if (Thickness > 1)
                 Thickness -= 1;
+        }
+
+        public void Handle(BrushTypeChangeMessage message)
+        {
+            Type = message.Type;
         }
     }
 }

@@ -79,6 +79,7 @@
     <Compile Include="GridType.cs" />
     <Compile Include="IShell.cs" />
     <Compile Include="Messages\BrushSizeChangeRequest.cs" />
+    <Compile Include="Messages\BrushTypeChangeMessage.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\BrushSettingsService.cs" />
     <Compile Include="Utilities\Colorization.cs" />

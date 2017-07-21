@@ -1,9 +1,11 @@
+using System.Runtime.InteropServices;
 using Caliburn.Micro;
 using Inker.Messages;
 using Inker.ViewModels;
 using System.Windows.Input;
 
-namespace Inker.ViewModels {
+namespace Inker.ViewModels
+{
     public class ShellViewModel : PropertyChangedBase, IShell
     {
         public CanvasViewModel Canvas { get; private set; }
@@ -25,6 +27,12 @@ namespace Inker.ViewModels {
                 case Key.OemMinus:
                 case Key.Subtract:
                     _eventAggregator.PublishOnUIThread(new BrushSizeDecreaseMessage());
+                    break;
+                case Key.H:
+                    _eventAggregator.PublishOnUIThread(new BrushTypeChangeMessage(BrushType.HIGHLIGHTER));
+                    break;
+                case Key.P:
+                    _eventAggregator.PublishOnUIThread(new BrushTypeChangeMessage(BrushType.PEN));
                     break;
             }
         }

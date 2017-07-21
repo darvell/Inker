@@ -38,7 +38,6 @@ namespace Inker.Utilities
             if (mainHandle != IntPtr.Zero)
             {
                 HwndSource.FromHwnd(mainHandle)?.AddHook(WndProcHook);
-                Debug.WriteLine("Hook added.");
             }
             else
             {
