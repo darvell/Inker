@@ -40,5 +40,6 @@ namespace Inker.ViewModels
             IsHighlighter = _brushSettings.Type == BrushType.HIGHLIGHTER,
             StylusTip = StylusTip.Ellipse
         };
+
     }
 }

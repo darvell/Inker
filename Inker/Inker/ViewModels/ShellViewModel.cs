@@ -3,8 +3,8 @@ using Inker.Messages;
 using Inker.ViewModels;
 using System.Windows.Input;
 
-namespace Inker {
-    public class ShellViewModel : Caliburn.Micro.PropertyChangedBase, IShell
+namespace Inker.ViewModels {
+    public class ShellViewModel : PropertyChangedBase, IShell
     {
         public CanvasViewModel Canvas { get; private set; }
         private IEventAggregator _eventAggregator;
