@@ -40,6 +40,10 @@ namespace Inker.ViewModels
                     _eventAggregator.PublishOnUIThread(new BrushTypeChangeMessage(BrushType.PEN));
                     break;
 
+                case Key.G:
+                    _eventAggregator.PublishOnUIThread(new GridToggle());
+                    break;
+
                 case Key.OemOpenBrackets:
                     _eventAggregator.PublishOnUIThread(new GridScaleDecreaseMessage());
                     break;

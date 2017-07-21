@@ -8,6 +8,7 @@ using System.Windows.Media;
 using Caliburn.Micro;
 using Inker.Services;
 using System.Windows;
+using System.Diagnostics;
 
 namespace Inker.ViewModels
 {
@@ -36,6 +37,7 @@ namespace Inker.ViewModels
             _gridSettings.PropertyChanged += (sender, args) =>
             {
                 NotifyOfPropertyChange(nameof(DottedBrushViewport));
+                NotifyOfPropertyChange(nameof(OverlayVisiblility));
             };
         }
 
@@ -55,7 +57,15 @@ namespace Inker.ViewModels
         {
             get
             {
-                return new Rect(0, 0, 10 * _gridSettings.Scale, 10 * _gridSettings.Scale);
+                return new Rect(0, 0, 12.5 * _gridSettings.Scale, 12.5 * _gridSettings.Scale);
+            }
+        }
+
+        public Visibility OverlayVisiblility
+        {
+            get
+            {
+                return _gridSettings.Type != GridType.NONE ? Visibility.Visible : Visibility.Hidden;
             }
         }
     }
