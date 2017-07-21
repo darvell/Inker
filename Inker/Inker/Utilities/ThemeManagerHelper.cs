@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MahApps.Metro;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using MahApps.Metro;
 
 namespace Inker.Utilities
 {
     /* Borrowed from https://github.com/punker76/code-samples/blob/master/MahAppsMetroThemesSample/MahAppsMetroThemesSample/ThemeManagerHelper.cs */
-    class ThemeManagerHelper
+
+    internal class ThemeManagerHelper
     {
         public static void CreateAppStyleBy(Color color, bool changeImmediately = false)
         {

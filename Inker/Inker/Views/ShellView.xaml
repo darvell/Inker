@@ -8,7 +8,5 @@
     <Grid Background="White" cal:Message.Attach="[Event KeyDown] = [Action HandleKeyInput($eventArgs)]">
         <ContentControl x:Name="Canvas"></ContentControl>
         <ContentControl x:Name="KeyGrabber" Visibility="Hidden" IsHitTestVisible="False"></ContentControl>
-
     </Grid>
-
 </controls:MetroWindow>
