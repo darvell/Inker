@@ -24,6 +24,7 @@ namespace Inker
             container.Singleton<IEventAggregator, EventAggregator>();
             container.Singleton<BrushSettingsService>();
             container.Singleton<GridSettingsService>();
+            container.PerRequest<ToolbarViewModel>();
             container.PerRequest<CanvasViewModel>();
             container.PerRequest<IShell, ShellViewModel>();
         }

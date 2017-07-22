@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
+using Inker.Services;
 
 namespace Inker.ViewModels
 {
@@ -49,5 +50,27 @@ namespace Inker.ViewModels
         };
 
         #endregion Color Presets
+
+        private BrushSettingsService _brushSettings;
+        private GridSettingsService _gridSettings;
+
+
+        public ToolbarViewModel()
+        {
+            _brushSettings = new BrushSettingsService();
+            _gridSettings = new GridSettingsService();
+        }
+
+        public ToolbarViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettings)
+        {
+            _brushSettings = brushSettings;
+            _gridSettings = gridSettings;
+        }
+
+        public bool GridEnabled
+        {
+            get => _gridSettings.Type != GridType.NONE;
+            set => _gridSettings.Type = value ? GridType.DOTTED_PAPER : GridType.NONE;
+        }
     }
 }

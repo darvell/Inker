@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Inker.Views.ToolbarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Inker.Views"
+             mc:Ignorable="d" 
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:viewModels="clr-namespace:Inker.ViewModels"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             d:DataContext="{d:DesignInstance Type=viewModels:ToolbarViewModel, IsDesignTimeCreatable=True}"
+             cal:Bind.AtDesignTime="True"
+             d:DesignHeight="40" d:DesignWidth="300">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+        <ToggleButton Style="{DynamicResource MetroCircleButtonStyle}" Width="40" IsChecked="{Binding Path=GridEnabled}">
+            <iconPacks:PackIconModern Width="20" Height="20" Kind="Grid" />
+        </ToggleButton>
+    </StackPanel>
+</UserControl>

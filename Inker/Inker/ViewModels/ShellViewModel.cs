@@ -9,14 +9,17 @@ namespace Inker.ViewModels
     public class ShellViewModel : PropertyChangedBase, IShell
     {
         public CanvasViewModel Canvas { get; private set; }
+        public ToolbarViewModel Toolbar { get; private set; }
+
         private IEventAggregator _eventAggregator;
 
         public event EventHandler<ViewAttachedEventArgs> ViewAttached;
 
-        public ShellViewModel(IEventAggregator eventAggregator, CanvasViewModel canvasViewModel)
+        public ShellViewModel(IEventAggregator eventAggregator, CanvasViewModel canvasViewModel, ToolbarViewModel toolbarViewModel)
         {
             _eventAggregator = eventAggregator;
             Canvas = canvasViewModel;
+            Toolbar = toolbarViewModel;
             ViewAttached += (sender, args) =>
             {
                 Keyboard.Focus(((ShellView)args.View));
