@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Media;
+using Caliburn.Micro;
 using Inker.Services;
 
 namespace Inker.ViewModels
@@ -53,7 +54,7 @@ namespace Inker.ViewModels
 
         private BrushSettingsService _brushSettings;
         private GridSettingsService _gridSettings;
-
+        private IEventAggregator _eventAggregator;
 
         public ToolbarViewModel()
         {
@@ -61,10 +62,11 @@ namespace Inker.ViewModels
             _gridSettings = new GridSettingsService();
         }
 
-        public ToolbarViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettings)
+        public ToolbarViewModel(BrushSettingsService brushSettings, GridSettingsService gridSettings, IEventAggregator eventAggregator)
         {
             _brushSettings = brushSettings;
             _gridSettings = gridSettings;
+            _eventAggregator = eventAggregator;
         }
 
         public bool GridEnabled
@@ -72,5 +74,22 @@ namespace Inker.ViewModels
             get => _gridSettings.Type != GridType.NONE;
             set => _gridSettings.Type = value ? GridType.DOTTED_PAPER : GridType.NONE;
         }
+
+        public void Save()
+        {
+            // Be cheeky and just hook the existing hotkey handling :)
+            _eventAggregator.PublishOnUIThread(Hotkey.SAVE);
+        }
+
+        public void Load()
+        {
+            _eventAggregator.PublishOnUIThread(Hotkey.LOAD);
+        }
+
+        public void Undo()
+        {
+            _eventAggregator.PublishOnUIThread(Hotkey.UNDO);
+        }
+
     }
 }
