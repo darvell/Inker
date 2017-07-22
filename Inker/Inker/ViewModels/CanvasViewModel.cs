@@ -91,22 +91,12 @@ namespace Inker.ViewModels
 
         public void Handle(Hotkey message)
         {
-            var lastThing = _strokeHistory.LastOrDefault();
-            if (lastThing == null)
-                return;
+
 
             switch (message)
             {
                 case Hotkey.UNDO:
-                    _strokeHistory.Remove(lastThing);
-                    if (lastThing.Item2)
-                    {
-                        UserCanvasStrokes.Remove(lastThing.Item1);
-                    }
-                    else
-                    {
-                        UserCanvasStrokes.Add(lastThing.Item1);
-                    }
+                    Undo();
                     break;
                 case Hotkey.SAVE:
                     Save();
@@ -114,6 +104,23 @@ namespace Inker.ViewModels
                 case Hotkey.LOAD:
                     Load();
                     break;
+            }
+        }
+
+        public void Undo()
+        {
+
+            var lastThing = _strokeHistory.LastOrDefault();
+            if (lastThing == null)
+                return;
+            _strokeHistory.Remove(lastThing);
+            if (lastThing.Item2)
+            {
+                UserCanvasStrokes.Remove(lastThing.Item1);
+            }
+            else
+            {
+                UserCanvasStrokes.Add(lastThing.Item1);
             }
         }
 
