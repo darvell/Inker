@@ -95,6 +95,9 @@ namespace Inker.ViewModels
 
             switch (message)
             {
+                case Hotkey.NEW:
+                    Clear();
+                    break;
                 case Hotkey.UNDO:
                     Undo();
                     break;
@@ -122,6 +125,11 @@ namespace Inker.ViewModels
             {
                 UserCanvasStrokes.Add(lastThing.Item1);
             }
+        }
+
+        public void Clear()
+        {
+            UserCanvasStrokes.Clear();
         }
 
         public void Save()

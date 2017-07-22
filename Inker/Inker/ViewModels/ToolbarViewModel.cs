@@ -91,5 +91,10 @@ namespace Inker.ViewModels
             _eventAggregator.PublishOnUIThread(Hotkey.UNDO);
         }
 
+        public void New()
+        {
+            _eventAggregator.PublishOnUIThread(Hotkey.NEW);
+        }
+
     }
 }

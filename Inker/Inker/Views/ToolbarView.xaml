@@ -12,6 +12,10 @@
              cal:Bind.AtDesignTime="True"
              d:DesignHeight="40" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+        <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" x:Name="New">
+            <iconPacks:PackIconModern Height="16" Kind="PageNew" />
+        </Button>
+
         <Button Style="{DynamicResource MetroCircleButtonStyle}" Width="40" x:Name="Save">
             <iconPacks:PackIconModern Height="14" Kind="Save" />
         </Button>
@@ -27,5 +31,6 @@
         <ToggleButton Style="{DynamicResource MetroCircleButtonStyle}" Width="40" IsChecked="{Binding Path=GridEnabled}">
             <iconPacks:PackIconModern Width="20" Height="20" Kind="Grid" />
         </ToggleButton>
+
     </StackPanel>
 </UserControl>

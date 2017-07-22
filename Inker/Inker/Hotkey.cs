@@ -18,6 +18,7 @@ namespace Inker
         UNDO,
         REDO, // Eh...
         SAVE,
-        LOAD
+        LOAD,
+        NEW
     }
 }
