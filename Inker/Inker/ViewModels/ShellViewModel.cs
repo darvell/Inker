@@ -46,7 +46,15 @@ namespace Inker.ViewModels
                     break;
 
                 case Key.S:
-                    _eventAggregator.PublishOnUIThread(Hotkey.TOGGLE_SMOOTHING);
+                    _eventAggregator.PublishOnUIThread(
+                        (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control
+                            ? Hotkey.SAVE
+                            : Hotkey.TOGGLE_SMOOTHING);
+                    break;
+
+                case Key.L:
+                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                        _eventAggregator.PublishOnUIThread(Hotkey.LOAD);
                     break;
 
                 case Key.OemOpenBrackets:

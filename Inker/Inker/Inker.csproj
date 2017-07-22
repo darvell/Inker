@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.0-alpha009\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -86,6 +87,7 @@
     <Compile Include="Services\BrushSettingsService.cs" />
     <Compile Include="Services\GridSettingsService.cs" />
     <Compile Include="Utilities\Colorization.cs" />
+    <Compile Include="Utilities\StrokeCollectionExtensions.cs" />
     <Compile Include="Utilities\ThemeManagerHelper.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">

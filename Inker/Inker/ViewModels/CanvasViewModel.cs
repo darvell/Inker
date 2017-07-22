@@ -2,9 +2,12 @@
 using Inker.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Ink;
 using System.Linq;
+using Inker.Utilities;
+using Microsoft.Win32;
 
 namespace Inker.ViewModels
 {
@@ -105,7 +108,56 @@ namespace Inker.ViewModels
                         UserCanvasStrokes.Add(lastThing.Item1);
                     }
                     break;
+                case Hotkey.SAVE:
+                    Save();
+                    break;
+                case Hotkey.LOAD:
+                    Load();
+                    break;
             }
+        }
+
+        public void Save()
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog
+            {
+                FileName = "Sketch",
+                DefaultExt = ".svg",
+                Filter = "Sketches (.svg)|*.svg"
+            };
+
+            bool? result = saveDialog.ShowDialog();
+            if (result == true)
+            {
+                File.WriteAllText(saveDialog.FileName, UserCanvasStrokes.ToSvg(true));
+            }
+        }
+
+        public void Load()
+        {
+
+            OpenFileDialog openDialog = new OpenFileDialog
+            {
+                AddExtension = true,
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = ".svg",
+                Filter = "Sketches (.svg)|*.svg"
+            };
+            bool? result = openDialog.ShowDialog();
+            if (result == true)
+            {
+                try
+                {
+                    UserCanvasStrokes.LoadFromSvgFileMetadata(openDialog.FileName);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("No stroke metadata found in SVG file.", Application.Current.MainWindow.Title,
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
         }
     }
 }
