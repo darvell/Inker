@@ -16,6 +16,8 @@ namespace Inker
         DECREASE_GRID,
         TOGGLE_SMOOTHING,
         UNDO,
-        REDO
+        REDO, // Eh...
+        SAVE,
+        LOAD
     }
 }
