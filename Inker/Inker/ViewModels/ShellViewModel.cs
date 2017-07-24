@@ -2,6 +2,7 @@ using Caliburn.Micro;
 using System.Diagnostics;
 using System.Windows.Input;
 using System;
+using System.Windows;
 using Inker.Views;
 
 namespace Inker.ViewModels
@@ -13,17 +14,17 @@ namespace Inker.ViewModels
 
         private IEventAggregator _eventAggregator;
 
-        public event EventHandler<ViewAttachedEventArgs> ViewAttached;
 
         public ShellViewModel(IEventAggregator eventAggregator, CanvasViewModel canvasViewModel, ToolbarViewModel toolbarViewModel)
         {
             _eventAggregator = eventAggregator;
             Canvas = canvasViewModel;
             Toolbar = toolbarViewModel;
-            ViewAttached += (sender, args) =>
-            {
-                Keyboard.Focus(((ShellView)args.View));
-            };
+        }
+
+        public void Loaded(IInputElement sender, EventArgs args)
+        {
+            Keyboard.Focus(sender);
         }
 
         public void HandleKeyInput(KeyEventArgs keyArgs)
@@ -68,6 +69,10 @@ namespace Inker.ViewModels
                     _eventAggregator.PublishOnUIThread(Hotkey.INCREASE_GRID);
                     break;
 
+                case Key.Y:
+                    if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+                        _eventAggregator.PublishOnUIThread(Hotkey.REDO);
+                    break;
                 case Key.Z:
                     if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
                         _eventAggregator.PublishOnUIThread(Hotkey.UNDO);

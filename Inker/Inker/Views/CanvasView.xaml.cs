@@ -11,10 +11,6 @@ namespace Inker.Views
         public CanvasView()
         {
             InitializeComponent();
-            KeyDown += (sender, args) =>
-            {
-                Debug.WriteLine($"KeyDown: {args.Key} SysKey: {args.SystemKey}");
-            };
         }
     }
 }

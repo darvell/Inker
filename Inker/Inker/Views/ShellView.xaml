@@ -4,13 +4,12 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Inker"
-                      cal:Message.Attach="[Event PreviewKeyDown] = [Action HandleKeyInput($eventArgs)]">
+                      cal:Message.Attach="[Event PreviewKeyDown] = [Action HandleKeyInput($eventArgs)]; [Event Loaded] = [Action Loaded($this, $eventArgs)] ">
 
     <Grid Background="White">
         <DockPanel LastChildFill="True">
             <ContentControl x:Name="Toolbar" Height="40" DockPanel.Dock="Top"></ContentControl>
             <ContentControl x:Name="Canvas"></ContentControl>
         </DockPanel>
-        <ContentControl x:Name="KeyGrabber" Visibility="Hidden" IsHitTestVisible="False"></ContentControl>
     </Grid>
 </controls:MetroWindow>

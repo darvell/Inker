@@ -16,6 +16,7 @@ namespace Inker.ViewModels
         private BrushSettingsService _brushSettings;
         private GridSettingsService _gridSettings;
         private const int MAX_HISTORY = 50;
+        private bool _processingUndoRedo = false;
 
         private List<Tuple<StrokeCollection, bool>> _strokeHistory = new List<Tuple<StrokeCollection, bool>>();
 
@@ -45,6 +46,11 @@ namespace Inker.ViewModels
 
             UserCanvasStrokes.StrokesChanged += (sender, args) =>
             {
+                if (_processingUndoRedo)
+                {
+                    return;
+                }
+
                 if (_strokeHistory.Count >= MAX_HISTORY)
                     _strokeHistory.RemoveAt(0);
 
@@ -101,6 +107,9 @@ namespace Inker.ViewModels
                 case Hotkey.UNDO:
                     Undo();
                     break;
+                case Hotkey.REDO:
+                    Redo();
+                    break;
                 case Hotkey.SAVE:
                     Save();
                     break;
@@ -112,7 +121,7 @@ namespace Inker.ViewModels
 
         public void Undo()
         {
-
+            _processingUndoRedo = true;
             var lastThing = _strokeHistory.LastOrDefault();
             if (lastThing == null)
                 return;
@@ -125,6 +134,25 @@ namespace Inker.ViewModels
             {
                 UserCanvasStrokes.Add(lastThing.Item1);
             }
+            _processingUndoRedo = false;
+        }
+
+        public void Redo()
+        {
+            _processingUndoRedo = true;
+            var lastThing = _strokeHistory.LastOrDefault();
+            if (lastThing == null)
+                return;
+            _strokeHistory.Remove(lastThing);
+            if (lastThing.Item2)
+            {
+                UserCanvasStrokes.Add(lastThing.Item1);
+            }
+            else
+            {
+                UserCanvasStrokes.Remove(lastThing.Item1);
+            }
+            _processingUndoRedo = false;
         }
 
         public void Clear()
